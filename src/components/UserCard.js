@@ -13,12 +13,10 @@ class UserCard extends Component {
     borderBottom: "none",
   };
   render() {
-    const { user } = this.props;
+    const { user, me } = this.props;
     const { name, avatarURL, answers, questions } = user;
     const answered = Object.keys(answers).length;
     const asked = questions.length;
-    const sum = answered + asked;
-
     return (
       <div className="d-flex justify-content-center">
         <div
@@ -31,14 +29,14 @@ class UserCard extends Component {
           <div className="row">
             <h4
               className="card-header"
-              //style={me ? this.styleAuthed : this.styleNotAuthed}
+              style={me ? this.styleAuthed : this.styleNotAuthed}
             >
               {name}
-              {/*me && (
+              {me && (
                 <Badge style={{ marginLeft: "5px" }} bg="secondary">
                   You
                 </Badge>
-              )*/}
+              )}
             </h4>
 
             <div className="col col-md-4">
@@ -73,7 +71,7 @@ class UserCard extends Component {
                   fontSize: "15px",
                 }}
               >
-                Score {Object.keys(answers).length + questions.length}{" "}
+                Score {answered + asked}{" "}
               </div>
             </div>
           </div>
