@@ -14,9 +14,10 @@ class Home extends Component {
         <Switch>
           <Route exact path="/" component={QuestionsList} />
           <Route path="/questions/:id" component={CardDetails} />
-          <Route path="/leaderboard" component={LeaderBoard} />
+
           <Route path="/createquestion" component={CreateQuestion} />
-          <Route path="*">
+          <Route path="/leaderboard" component={LeaderBoard} />
+          <Route>
             <NotFound />
           </Route>
         </Switch>

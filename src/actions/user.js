@@ -15,6 +15,7 @@ export function addAnswer({ authedUser, questionId, answer }) {
     answer,
   };
 }
+
 export function createQuestion(question) {
   return {
     type: CREATE_QUESTION,

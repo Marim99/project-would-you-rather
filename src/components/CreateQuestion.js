@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { handleCreateQuestion } from "../actions/questions";
+import { handleCreateQuestion, receiveQuestions } from "../actions/questions";
 import { connect } from "react-redux";
+import { _getQuestions, _getUsers } from "../utils/_DATA";
+import { receiveUsers } from "../actions/user";
 class CreateQuestion extends Component {
   state = {
     optionOneText: "",
@@ -15,7 +17,12 @@ class CreateQuestion extends Component {
       [name]: value,
     });
   };
-
+  update = () => {
+    _getQuestions().then((questions) =>
+      this.props.dispatch(receiveQuestions(questions)),
+    );
+    _getUsers().then((users) => this.props.dispatch(receiveUsers(users)));
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     const { dispatch, authedUser } = this.props;
@@ -26,10 +33,10 @@ class CreateQuestion extends Component {
         handleCreateQuestion({ optionOneText, optionTwoText, authedUser }),
       );
     }
-
-    console.log(optionOneText);
+    this.update();
     this.props.history.push("/");
   };
+
   render() {
     const { optionOneText, optionTwoText } = this.state;
     return (

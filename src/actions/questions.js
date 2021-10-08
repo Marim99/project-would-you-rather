@@ -1,8 +1,15 @@
-import { _saveQuestion, _saveQuestionAnswer } from "../utils/_DATA";
+import {
+  _getQuestions,
+  _getUsers,
+  _saveQuestion,
+  _saveQuestionAnswer,
+} from "../utils/_DATA";
+import { receiveUsers } from "./user";
 export const RECEIVE_QUESTION = "RECEIVE_QUESTION";
 export const ADD_QUESTION = "ADD_QUESTION";
 export const ANSWER_QUESTION = " ANSWER_QUESTION";
 export const CREATE_QUESTION = " CREATE_QUESTION";
+
 export function addQuestions(questions) {
   return {
     type: ADD_QUESTION,

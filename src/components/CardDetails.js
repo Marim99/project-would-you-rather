@@ -3,17 +3,26 @@ import { connect } from "react-redux";
 import { ProgressBar, Button, Form, Badge } from "react-bootstrap";
 import { handleAddAnswer } from "../actions/questions";
 import { Link } from "react-router-dom";
+import { _getQuestions, _getUsers } from "../utils/_DATA";
+import { receiveUsers } from "../actions/user";
+import { receiveQuestions } from "../actions/questions";
 import NotFound from "./NotFound";
+import { withRouter } from "react-router-dom";
 class CardDetails extends Component {
   state = {
     selected: "",
   };
-
   handleChange = (e) => {
     const selectedOption = e.currentTarget.value;
     this.setState(() => ({
       selected: selectedOption,
     }));
+  };
+  update = () => {
+    _getQuestions().then((questions) =>
+      this.props.dispatch(receiveQuestions(questions)),
+    );
+    _getUsers().then((users) => this.props.dispatch(receiveUsers(users)));
   };
   handleVote = (e) => {
     e.preventDefault();
@@ -29,7 +38,9 @@ class CardDetails extends Component {
         }),
       );
     }
+    this.update();
   };
+
   style = {
     height: "80px",
     marginBottom: "30px",
@@ -196,4 +207,4 @@ function mapStateToProps({ authedUser, questions, users }, props) {
   };
 }
 
-export default connect(mapStateToProps)(CardDetails);
+export default withRouter(connect(mapStateToProps)(CardDetails));
